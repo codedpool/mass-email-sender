@@ -15,9 +15,9 @@ const upload = multer({ dest: "uploads/" });
 
 app.use(express.json());
 
-// CORS configuration to allow your frontend URL
+
 const allowedOrigins = [
-  "https://mass-email-sender.onrender.com", // Your frontend URL
+  "https://mass-email-sender.onrender.com", 
 ];
 
 app.use(
@@ -98,11 +98,10 @@ app.post("/send-email", upload.fields([{ name: "csvFile" }, { name: "contentFile
       for (const recipient of uniqueRecipients) {
         const personalizedContent = replacePersonalizationTags(emailContent, recipient);
         const trackingId = uuidv4();
-        const trackingPixel = `<img src="http://localhost:3000/track/${trackingId}" width="1" height="1" style="display:none;" />`;
-        const trackedLink = `http://localhost:3000/click/${trackingId}`;
-        const unsubscribeLink = `<p>If you wish to unsubscribe, click <a href="http://localhost:3000/unsubscribe/${encodeURIComponent(
-          recipient.email
-        )}">here</a>.</p>`;
+        const trackingPixel = `<img src="https://mass-email-sender-backend.onrender.com/track/${trackingId}" width="1" height="1" style="display:none;" />`;
+        const trackedLink = `https://mass-email-sender-backend.onrender.com/click/${trackingId}`;
+        const unsubscribeLink = `<p>If you wish to unsubscribe, click <a href="https://mass-email-sender-backend.onrender.com/unsubscribe/${encodeURIComponent(recipient.email)}">here</a>.</p>`;
+
 
         const finalHtml = `${personalizedContent}<p>Click <a href="${trackedLink}">here</a> to visit the link.</p>${trackingPixel}${unsubscribeLink}`;
 
