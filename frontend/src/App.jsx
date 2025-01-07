@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+const backendUrl = "https://mass-email-sender-backend.onrender.com"; 
+
 const EmailSender = () => {
   const [csvFile, setCsvFile] = useState(null);
   const [contentFile, setContentFile] = useState(null);
@@ -34,7 +36,7 @@ const EmailSender = () => {
     if (isScheduled) formData.append("sendAt", scheduleDate);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/send-email`, {
+      const response = await fetch(`${backendUrl}/send-email`, {
         method: "POST",
         body: formData,
       });
@@ -144,17 +146,7 @@ const EmailSender = () => {
       )}
 
       {/* Submit Button */}
-      <button
-        onClick={handleSendEmail}
-        style={{
-          width: "100%",
-          padding: "10px",
-          backgroundColor: "#4CAF50",
-          color: "white",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
+      <button onClick={handleSendEmail} style={{ width: "100%", padding: "10px", backgroundColor: "#4CAF50", color: "white", border: "none", cursor: "pointer" }}>
         Send Email
       </button>
 
