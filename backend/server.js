@@ -15,7 +15,6 @@ const upload = multer({ dest: "uploads/" });
 
 app.use(express.json());
 
-
 const allowedOrigins = [
   "https://mass-email-sender.onrender.com", 
 ];
@@ -102,7 +101,6 @@ app.post("/send-email", upload.fields([{ name: "csvFile" }, { name: "contentFile
         const trackedLink = `https://mass-email-sender-backend.onrender.com/click/${trackingId}`;
         const unsubscribeLink = `<p>If you wish to unsubscribe, click <a href="https://mass-email-sender-backend.onrender.com/unsubscribe/${encodeURIComponent(recipient.email)}">here</a>.</p>`;
 
-
         const finalHtml = `${personalizedContent}<p>Click <a href="${trackedLink}">here</a> to visit the link.</p>${trackingPixel}${unsubscribeLink}`;
 
         const mailOptions = {
@@ -122,6 +120,8 @@ app.post("/send-email", upload.fields([{ name: "csvFile" }, { name: "contentFile
               trackingData.push({ recipient: recipient.email, trackingId, clickUrl: trackedLink });
             } catch (error) {
               console.error(`Error sending scheduled email to ${recipient.email}:`, error.message);
+              console.error('Mail options:', mailOptions);
+              console.error('Schedule date:', scheduleDate);
             }
           });
         } else {
@@ -133,7 +133,7 @@ app.post("/send-email", upload.fields([{ name: "csvFile" }, { name: "contentFile
             console.error(`Error sending email to ${recipient.email}:`, error.message);
           }
         }
-        
+      }
 
       // Cleanup uploaded files
       fs.unlinkSync(filePath);
