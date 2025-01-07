@@ -14,7 +14,24 @@ const cors = require("cors");
 const upload = multer({ dest: "uploads/" });
 
 app.use(express.json());
-app.use(cors());
+
+// CORS configuration to allow your frontend URL
+const allowedOrigins = [
+  "https://mass-email-sender.onrender.com", // Your frontend URL
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin) || !origin) {
+        // Allow requests with no origin (e.g., Postman, mobile apps)
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 
 // Set up transporter for sending emails
 const transporter = nodemailer.createTransport({

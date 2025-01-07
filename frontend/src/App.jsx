@@ -34,7 +34,7 @@ const EmailSender = () => {
     if (isScheduled) formData.append("sendAt", scheduleDate);
 
     try {
-      const response = await fetch("http://localhost:3000/send-email", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/send-email`, {
         method: "POST",
         body: formData,
       });
@@ -144,7 +144,17 @@ const EmailSender = () => {
       )}
 
       {/* Submit Button */}
-      <button onClick={handleSendEmail} style={{ width: "100%", padding: "10px", backgroundColor: "#4CAF50", color: "white", border: "none", cursor: "pointer" }}>
+      <button
+        onClick={handleSendEmail}
+        style={{
+          width: "100%",
+          padding: "10px",
+          backgroundColor: "#4CAF50",
+          color: "white",
+          border: "none",
+          cursor: "pointer",
+        }}
+      >
         Send Email
       </button>
 
