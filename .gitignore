@@ -1,0 +1,22 @@
+# Node.js dependencies (common for frontend and backend)
+/node_modules
+backend/node_modules
+
+# Build output (frontend and backend)
+/dist
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE or editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backend specific logs
+/logs
