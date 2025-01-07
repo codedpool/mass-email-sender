@@ -86,7 +86,9 @@ app.post("/send-email", upload.fields([{ name: "csvFile" }, { name: "contentFile
       }
     })
     .on("end", async () => {
-      const uniqueRecipients = Array.from(new Set(recipients));
+      const uniqueRecipients = recipients.filter((recipient, index, self) =>
+        index === self.findIndex((r) => r.email === recipient.email)
+      );
       const trackingData = [];
       let emailContent = manualText || "";
 
@@ -113,16 +115,18 @@ app.post("/send-email", upload.fields([{ name: "csvFile" }, { name: "contentFile
 
         if (isScheduled === "true") {
           const scheduleDate = new Date(sendAt);
-          schedule.scheduleJob(scheduleDate, async () => {
-            try {
-              const result = await transporter.sendMail(mailOptions);
-              console.log(`Scheduled email sent successfully to ${recipient.email}`, result);
-              trackingData.push({ recipient: recipient.email, trackingId, clickUrl: trackedLink });
-            } catch (error) {
-              console.error(`Error sending scheduled email to ${recipient.email}:`, error.message);
-              console.error('Mail options:', mailOptions);
-              console.error('Schedule date:', scheduleDate);
-            }
+          schedule.scheduleJob(scheduleDate, function() {
+            (async () => {
+              try {
+                const result = await transporter.sendMail(mailOptions);
+                console.log(`Scheduled email sent successfully to ${recipient.email}`, result);
+                trackingData.push({ recipient: recipient.email, trackingId, clickUrl: trackedLink });
+              } catch (error) {
+                console.error(`Error sending scheduled email to ${recipient.email}:`, error.message);
+                console.error('Mail options:', mailOptions);
+                console.error('Schedule date:', scheduleDate);
+              }
+            })();
           });
         } else {
           try {
