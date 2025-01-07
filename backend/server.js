@@ -151,7 +151,7 @@ app.post("/send-email", upload.fields([{ name: "csvFile" }, { name: "contentFile
 app.get("/track/:trackingId", (req, res) => {
   const trackingId = req.params.trackingId;
   console.log(`Email opened. Tracking ID: ${trackingId}`);
-  res.sendFile(path.join(__dirname, "tracking-pixel.png"));
+  res.sendFile(path.join(__dirname, "tracking-pixels.png"));
 });
 
 // Handle click tracking
