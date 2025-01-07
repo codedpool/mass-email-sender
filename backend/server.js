@@ -115,6 +115,7 @@ app.post("/send-email", upload.fields([{ name: "csvFile" }, { name: "contentFile
 
         if (isScheduled === "true") {
           const scheduleDate = new Date(sendAt);
+          console.log(`Scheduling email for ${recipient.email} at ${scheduleDate}`);
           schedule.scheduleJob(scheduleDate, function() {
             (async () => {
               try {
