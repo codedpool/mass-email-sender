@@ -27,6 +27,9 @@ const EmailSender = () => {
       return;
     }
 
+    if (isScheduled) formData.append("sendAt", scheduleDate);
+
+
     const formData = new FormData();
     formData.append("csvFile", csvFile);
     formData.append("contentFile", contentFile);

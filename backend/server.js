@@ -133,7 +133,7 @@ app.post("/send-email", upload.fields([{ name: "csvFile" }, { name: "contentFile
             console.error(`Error sending email to ${recipient.email}:`, error.message);
           }
         }
-      }
+        
 
       // Cleanup uploaded files
       fs.unlinkSync(filePath);
