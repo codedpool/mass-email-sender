@@ -18,8 +18,8 @@ const cors = require("cors");
 const upload = multer({ dest: "uploads/" });
 
 // Define frontend and backend URLs
-const FRONTEND_URL = "https://mailer1-d1qw.onrender.com";
-const BACKEND_URL = "https://mailer-backend-7ay3.onrender.com";
+const FRONTEND_URL = "https://mass-email-sender.onrender.com";
+const BACKEND_URL = "https://mass-email-sender-backend.onrender.com";
 
 app.use(express.json());
 app.use(cors());
