@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 // Define frontend and backend URLs
-const FRONTEND_URL = "https://mailer1-d1qw.onrender.com";
-const BACKEND_URL = "https://mailer-backend-7ay3.onrender.com";
+const FRONTEND_URL = "https://mass-email-sender.onrender.com";
+const BACKEND_URL = "https://mass-email-sender-backend.onrender.com";
 
 const EmailSender = () => {
   const [csvFile, setCsvFile] = useState(null);
